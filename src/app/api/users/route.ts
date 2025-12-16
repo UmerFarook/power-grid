@@ -1,5 +1,6 @@
+import { User } from "@/app/users/FormSubmit";
 import { NextResponse } from 'next/server';
-export let usersList = [
+export let usersList :User[] = [
     {
         id: 1,
         name: 'Leanne Graham',
@@ -207,7 +208,20 @@ export const GET = async (request:Request)=>{
 }
 
 export const POST = async (request :Request) =>{
-    const reQuestBody = await request.json();
+    const reQuestBody:User = await request.json();
     usersList = [...usersList,reQuestBody];
+    return NextResponse.json(({users:usersList,success:true, message:'data updated'}))
+}
+
+export const PATCH = async (request: Request) =>{
+    const patchingBody :User = await request.json();
+    const idOfPatchingItem : Number = patchingBody.id;
+    usersList = usersList.map((user:User):User =>{
+        if (user.id ===idOfPatchingItem) {
+            return {...user,...patchingBody}
+        }
+        return user;
+    });
+
     return NextResponse.json(({users:usersList,success:true, message:'data updated'}))
 }

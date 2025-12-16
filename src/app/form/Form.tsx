@@ -1,12 +1,10 @@
 'use client'
 import React, {useActionState} from 'react';
-import action from "@/app/form/FormSubmit";
+import action from "@/app/form/GridFormSubmit";
 
-function Form(props) {
+function GridForm(props) {
 
     const [state,formAction] = useActionState(action,[]);
-
-    console.log(state.girdData)
     return (
         <div>
 
@@ -21,4 +19,4 @@ function Form(props) {
     );
 }
 
-export default Form;
+export default GridForm;
