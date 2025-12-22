@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`testing the fetch request test fetch 1`] = `<div />`;
+
+exports[`testing the fetech request test fetch 1`] = `<DocumentFragment />`;

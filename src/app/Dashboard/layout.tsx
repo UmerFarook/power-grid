@@ -1,24 +1,29 @@
-'use client'
+'use client';
 import React from 'react';
-import Form from "@/app/form/Form";
-import GridForm from "@/app/form/Form";
-import { ErrorBoundary } from "react-error-boundary";
+import Header from "./header";
 import {MutationCache, QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient({
     mutationCache: new MutationCache({
+        onSuccess:()=>{
+            queryClient.invalidateQueries();
+        },
+        onSettled:()=>{},
     })
 });
-function Page() {
+
+
+function Layout({props, children}) {
     return (
-        <div>Form Data
+        <div>
+            <Header/>
             <QueryClientProvider client={queryClient}>
-            <ErrorBoundary fallback={<p>Something went wrong</p>}>
-        <GridForm></GridForm>
-            </ErrorBoundary>
+                {children}
             </QueryClientProvider>
+
         </div>
+
     );
 }
 
-export default Page;
+export default Layout;

@@ -14,7 +14,6 @@ const action = async (prevState:FormActionType,formData:FormData)=>{
     const gridName  = formData.get('gridName');
     const power  = formData.get('power');
     const downtime  = formData.get('downtime');
-
  const prevData:FormDataType[] = prevState?.gridData || [];
     const gridData= [...prevData,{
         gridName,

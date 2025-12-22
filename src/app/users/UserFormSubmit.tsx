@@ -40,14 +40,19 @@ function UserFormSubmit(props) {
             email:formData.get('email') || '',
             name:formData.get('name') || '',
         }
-         const postData  = await fetch('/api/users',{
-             method:'PATCH',
-             headers:{
-                 'Content-Type':'application/json',
-             },
-             body:JSON.stringify(userData)
-         }).then(res => res.json());
+        try{
+            const postData  = await fetch('/api/users',{
+                method:'PATCH',
+                headers:{
+                    'Content-Type':'application/json',
+                },
+                body:JSON.stringify(userData)
+            }).then(res => res.json());
 
+        }
+        catch (error){
+            throw Error('something wrong happened')
+        }
 
         return [userData];
 
