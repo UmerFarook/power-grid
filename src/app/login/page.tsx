@@ -14,7 +14,7 @@ async function Page(props) {
         <>
             <form action={login}>
                 <p>You are not signed in</p>
-                <button type={"submit"}>Sign in</button>
+                <button className="button text-center" type={"submit"}>Sign in using GitHub</button>
             </form>
         </>
 

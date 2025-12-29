@@ -1,11 +1,11 @@
 import { auth } from "@/auth";
 import Image from "next/image";
 import getAuthSession from "./lib/actions/getAuthSession";
+import Link from "next/link";
 
 export default async function Home() {
 
     const {user}  = await getAuthSession()
-    console.log(user)
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
@@ -18,6 +18,22 @@ export default async function Home() {
           <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
            Manage the power grid
           </p>
+            <p>
+                <Link
+                    className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[208px]"
+                    href="/form"
+                    rel="noopener noreferrer"
+                >
+                    <Image
+                        className="dark:invert"
+                        src="/vercel.svg"
+                        alt="Vercel logomark"
+                        width={16}
+                        height={16}
+                    />
+                    Update Grid Data
+                </Link>
+            </p>
         </div>
 
       </main>
