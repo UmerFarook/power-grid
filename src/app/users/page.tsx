@@ -3,15 +3,16 @@ import { nanoid } from 'nanoid';
 import UserFormSubmit from "./UserFormSubmit";
 const Users = async ()=>{
     const users = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/users/`
-    ).then(res => res.json());
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/users?order=desc`
+    ).then(res => res.json()).then(([users]) => users.users);
+
 
     return(
         <div>
 
-        <h1 data-testid="title">Salam</h1>
+        <h1 className="text-2xl text-center gap-5" data-testid="title">User List</h1>
         <UserFormSubmit/>
-        {users.users?.map((user) =>{
+        {users?.map((user) =>{
            return(<div key={user.id}>
                <p> {user.id}</p>
                <p> {user.name}</p>

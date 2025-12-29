@@ -20,9 +20,9 @@ function GridForm() {
 
     const queryClient = useQueryClient();
     const [mutationError, setMutationError] = useState('');
-    const formDataStore = useFormStore((store :FormState)=>store.formDataState);
-    const updateFormDataStore = useFormStore((store:FormState)=>store.addFormData);
-    const deleteTheFormEntries = useFormStore((store:FormState)=>store.deleteTheFormEntries);
+    const formDataStore = useFormStore((store)=>store.formSlice.formDataState);
+    const updateFormDataStore = useFormStore((store)=>store.formSlice.addFormData);
+    const deleteTheFormEntries = useFormStore((store)=>store.formSlice.deleteTheFormEntries);
 
     const postFormData = useMutation({
         mutationKey:['grids'],
@@ -64,10 +64,12 @@ function GridForm() {
     });
     const updateGrid = (formData:FormInput) => {
         postFormData.mutate(formData);
+        updateFormDataStore(formData);
+
     }
     return (
         <div>
-            {formDataStore.map((formItem: FormInput,key)=> <p key={key}>{formItem.gridName}</p>)}
+            {formDataStore?.map((formItem: FormInput,key)=> <p key={key}>{formItem.gridName}</p>)}
 
             {mutationError !='' && <p>{`Some error occured ${mutationError}`} </p>}
             <form onSubmit={handleSubmit(updateGrid)}>

@@ -1,4 +1,5 @@
 import { User } from "@/app/users/FormSubmit";
+import { NextApiRequest } from "next";
 import { NextResponse } from 'next/server';
 export let usersList :User[] = [
     {
@@ -203,8 +204,19 @@ export let usersList :User[] = [
     }
 ];
 
-export const GET = async (request:Request)=>{
-    return NextResponse.json([{users:usersList, success:true}])
+export const GET = async (request)=>{
+   // const {order} = request.query
+    const { searchParams } = new URL(request.url);
+    const order = searchParams.get('order');
+    let sortedList = []
+   if(order ==='desc'){
+      sortedList = usersList.sort((a, b) => b.id - a.id);
+   }
+   else {
+       sortedList = usersList.sort((a, b) => a.id - b.id);
+   }
+
+    return NextResponse.json([{users:sortedList, success:true}])
 }
 
 export const POST = async (request :Request) =>{

@@ -1,7 +1,7 @@
-'use client'
 
 import { nanoid } from "nanoid";
-import React, { useActionState } from 'react'
+import { revalidatePath } from "next/cache";
+import { formAction } from "./submitFunction";
 
 export type Geo = {
     lat: string;
@@ -34,30 +34,7 @@ export type User = {
 };
 function UserFormSubmit(props) {
 
-    const action = async (prevState :User[], formData:FormData): Promise<User[]> =>{
-        const userData : User = {
-            id:Number(formData.get('id')),
-            email:formData.get('email') || '',
-            name:formData.get('name') || '',
-        }
-        try{
-            const postData  = await fetch('/api/users',{
-                method:'PATCH',
-                headers:{
-                    'Content-Type':'application/json',
-                },
-                body:JSON.stringify(userData)
-            }).then(res => res.json());
 
-        }
-        catch (error){
-            throw Error('something wrong happened')
-        }
-
-        return [userData];
-
-    }
-    const [[state],formAction] = useActionState(action,[])
     return (
         <div>
             <form action={formAction}>
